@@ -85,3 +85,14 @@ button { font: inherit; color: var(--ink); cursor: pointer; }
 @keyframes spin { to { transform: rotate(360deg); } }
 #err { position: fixed; left: 8px; right: 8px; bottom: 90px; background: #fff0f0; color: #a00; font: 12px monospace; white-space: pre-wrap; padding: 8px; border-radius: 8px; display: none; max-height: 30vh; overflow: auto; z-index: 9; }
 #panel .build { font-size: 11px; opacity: .4; margin: 8px 0 0; }
+#splash { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px;
+  z-index: 5; }
+#splash .logo { background: rgba(255,253,248,.94); border-radius: 26px; padding: 18px 34px 20px; box-shadow: 0 12px 40px rgba(60,40,10,.18); }
+#splash .logo { text-align: center; }
+#splash h1 { margin: 6px 0 0; font-size: clamp(34px, 7vw, 64px); font-weight: 900; letter-spacing: -1px; color: #2b2522;
+  text-shadow: 0 3px 0 #fff, 0 6px 18px rgba(120,80,20,.25); }
+#splash p { margin: 6px 0 0; font-size: 16px; font-weight: 700; color: #6b5a48; }
+#splash .ball { display: inline-block; width: 46px; height: 46px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff6c8, #ffc640 40%, #b07a0c 100%); box-shadow: 0 6px 14px rgba(150,100,0,.35); animation: bob 1.6s ease-in-out infinite; }
+#splash .big { font-size: 22px; padding: 0 44px; height: 62px; }
+@keyframes bob { 50% { transform: translateY(-10px); } }
