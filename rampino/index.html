@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
+<meta name="theme-color" content="#9ed8ff" />
+<title>Rampino</title>
+<link rel="stylesheet" href="style.css" />
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js" } }
+</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="hud">
+  <div id="height">0 m</div>
+  <div id="sub"><span id="best"></span><span id="falls"></span></div>
+</div>
+<div id="toast"></div>
+<div id="intro" class="panel">
+  <h1>Rampino</h1>
+  <p>Scala la montagna più alta che puoi.</p>
+  <ul>
+    <li><b>Tieni premuto</b> vicino a un appiglio per agganciare la corda: la corda si accorcia e ti tira su.</li>
+    <li><b>Lascia</b> per staccarti: sfrutta lo slancio per volare verso il prossimo.</li>
+    <li>Gli appigli marroni si sgretolano, quelli con il binario si muovono. Le bandiere sono i rifugi.</li>
+  </ul>
+  <button id="start">Gioca</button>
+  <small>Prototipo · solo meccanica, grafica provvisoria</small>
+</div>
+<div id="err"></div>
+<script>
+  // su telefono non c'è la console: mostra gli errori a schermo durante i test
+  window.addEventListener('error', (e) => { const el = document.getElementById('err'); el.textContent += (e.message || e) + '\n'; el.style.display = 'block'; });
+  window.addEventListener('unhandledrejection', (e) => { const el = document.getElementById('err'); el.textContent += 'Promise: ' + (e.reason && e.reason.message || e.reason) + '\n'; el.style.display = 'block'; });
+</script>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
