@@ -24,6 +24,8 @@ button { font: inherit; color: var(--ink); cursor: pointer; }
 .round:disabled { opacity: .35; }
 .round:active, .big:active, .part:active { transform: translateY(2px); box-shadow: none; }
 
+#zoomTools { position: fixed; left: calc(12px + var(--safe-l)); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; }
+#zoomTools .round { width: 40px; height: 40px; font-size: 24px; opacity: .92; }
 #selTools { position: fixed; right: calc(12px + var(--safe-r)); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 12px; }
 
 #bottom { position: fixed; left: 0; right: 0; bottom: 0; padding: 8px calc(12px + var(--safe-r)) calc(8px + var(--safe-b)) calc(12px + var(--safe-l));
@@ -48,8 +50,9 @@ button { font: inherit; color: var(--ink); cursor: pointer; }
 #toast { position: fixed; top: calc(70px + var(--safe-t)); left: 50%; transform: translateX(-50%); background: rgba(40,30,25,.88); color: #fff;
   padding: 10px 16px; border-radius: 14px; font-weight: 700; font-size: 14px; opacity: 0; transition: opacity .25s; pointer-events: none; max-width: min(88vw, 560px); text-align: center; }
 #toast.show { opacity: 1; }
-#rotateTip { position: fixed; top: calc(118px + var(--safe-t)); left: 50%; transform: translateX(-50%); background: var(--card); padding: 8px 14px;
-  border-radius: 12px; font-size: 13px; font-weight: 700; box-shadow: 0 2px 0 rgba(0,0,0,.1); pointer-events: none; text-align: center; max-width: 90vw; }
+#rotateTip { position: fixed; bottom: calc(100px + var(--safe-b)); left: 50%; transform: translateX(-50%); background: var(--card); padding: 8px 14px;
+  border-radius: 12px; font-size: 13px; font-weight: 700; box-shadow: 0 2px 0 rgba(0,0,0,.1); text-align: center; max-width: 90vw; cursor: pointer; }
+#rotateTip::after { content: "  ✕"; opacity: .5; }
 #shade { position: fixed; inset: 0; background: rgba(43,37,34,.25); }
 #panel { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(92vw, 520px); max-height: 88vh; overflow: auto;
   background: #fffdf8; border-radius: 22px; padding: 18px 20px; box-shadow: 0 20px 60px rgba(0,0,0,.25); text-align: center; }
