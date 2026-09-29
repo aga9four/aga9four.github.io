@@ -84,3 +84,4 @@ button { font: inherit; color: var(--ink); cursor: pointer; }
 .spinner { width: 44px; height: 44px; border-radius: 50%; border: 5px solid rgba(43,37,34,.15); border-top-color: var(--green); animation: spin 1s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 #err { position: fixed; left: 8px; right: 8px; bottom: 90px; background: #fff0f0; color: #a00; font: 12px monospace; white-space: pre-wrap; padding: 8px; border-radius: 8px; display: none; max-height: 30vh; overflow: auto; z-index: 9; }
+#panel .build { font-size: 11px; opacity: .4; margin: 8px 0 0; }
