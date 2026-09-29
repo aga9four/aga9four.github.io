@@ -7,7 +7,7 @@ export const CHUNK = 24; // altezza di un blocco di generazione (m)
 export const CHECKPOINT_EVERY = 60; // un rifugio con bandiera ogni tot metri
 
 export const BIOMES = [
-  { from: 0, name: 'Bosco', sky: [0x9ed8ff, 0xe8f6ff], rock: 0x7c8a5a, accent: 0x3f7d3a },
+  { from: 0, name: 'Bosco', sky: [0x9ed8ff, 0xe8f6ff], rock: 0x8c8878, accent: 0x4a8a3c },
   { from: 120, name: 'Falesia', sky: [0xffc98f, 0xffeedd], rock: 0xa0765a, accent: 0x6b4a36 },
   { from: 300, name: 'Ghiacciaio', sky: [0xbfe3ff, 0xf5fbff], rock: 0x9fb6c8, accent: 0xe8f4ff },
   { from: 520, name: 'Tempesta', sky: [0x55607a, 0xa9b2c6], rock: 0x5c6273, accent: 0x9aa3b8 },

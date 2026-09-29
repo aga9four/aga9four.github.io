@@ -196,8 +196,8 @@ for (let i = 0; i < 26; i++) {
   const leafM = [mat(0x2f6b3a), mat(0x3d7f3f), mat(0x285c34)];
   for (let i = 0; i < 90; i++) {
     const x = (hash(i, 11) - 0.5) * 120;
-    const z = 2 + hash(11, i) * 55;
-    if (Math.abs(x) < 7 && z < 14) continue; // radura davanti alla parete
+    const z = 1 + hash(11, i) * 20;
+    if (Math.abs(x) < 11) continue; // radura davanti alla parete
     const s = 0.8 + hash(i, 13) * 1.4;
     const t = new THREE.Group();
     const trunk = new THREE.Mesh(trunkG, M.wood);
