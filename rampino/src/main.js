@@ -17,8 +17,8 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 
 const scene = new THREE.Scene();
-scene.fog = new THREE.Fog(0x9ed8ff, 40, 110);
-const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 400);
+scene.fog = new THREE.Fog(0x9ed8ff, 60, 170);
+const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 600);
 
 const hemi = new THREE.HemisphereLight(0xffffff, 0x556070, 1.1);
 scene.add(hemi);
@@ -97,7 +97,12 @@ function buildChunk(ci) {
     const z = -2.6 + noise(x * 0.35, y * 0.35) * 1.6 + noise(x * 1.1, y * 1.1) * 0.5 + Math.min(side * 0.9, 14);
     pos.setZ(i, z);
     pos.setY(i, y);
-    const c = colorOfBiome(y, 'rock').offsetHSL(0, 0, (noise(x * 0.8, y * 0.8) - 0.5) * 0.12 - Math.min(side, 8) * 0.012);
+    // strati orizzontali + chiazze (muschio, neve…) sulle parti piatte
+    const strata = Math.sin(y * 0.9 + noise(x * 0.15, y * 0.05) * 5) * 0.06;
+    const c = colorOfBiome(y, 'rock').offsetHSL(0, 0.04, 0.06 + strata + (noise(x * 0.8, y * 0.8) - 0.5) * 0.16 - Math.min(side, 8) * 0.01);
+    const patch = noise(x * 0.22 + 40, y * 0.22) * noise(x * 0.9, y * 0.9 + 7);
+    if (patch > 0.32) c.lerp(colorOfBiome(y, 'accent'), Math.min(1, (patch - 0.32) * 5));
+    if (y < 10) c.lerp(new THREE.Color(0x4f8a3c), THREE.MathUtils.clamp((10 - y) / 10, 0, 1) * 0.7 * noise(x * 0.5, y * 0.5 + 3));
     colors.push(c.r, c.g, c.b);
   }
   g.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
@@ -163,6 +168,60 @@ for (let i = 0; i < 26; i++) {
   g.userData.speed = 0.3 + hash(i, 5) * 0.6;
   scene.add(g);
   clouds.push(g);
+}
+
+// ------------------------------------------------------------------ valle ai piedi della parete
+{
+  const vg = new THREE.PlaneGeometry(260, 140, 52, 28);
+  vg.rotateX(-Math.PI / 2);
+  const vp = vg.attributes.position;
+  const vc = [];
+  for (let i = 0; i < vp.count; i++) {
+    const x = vp.getX(i), z = vp.getZ(i) + 60; // da z=-10 a z=130
+    vp.setZ(i, z);
+    const edge = Math.max(0, z - 4);
+    const yy = -0.02 - (noise(x * 0.08, z * 0.08) - 0.5) * Math.min(edge, 30) * 0.12 - Math.max(0, z - 70) * 0.25;
+    vp.setY(i, Math.min(0, yy));
+    const c = new THREE.Color(0x5e9a45).offsetHSL((noise(x * 0.2, z * 0.2) - 0.5) * 0.05, 0, (noise(x * 0.5, z * 0.5) - 0.5) * 0.12);
+    vc.push(c.r, c.g, c.b);
+  }
+  vg.setAttribute('color', new THREE.Float32BufferAttribute(vc, 3));
+  vg.computeVertexNormals();
+  const valley = new THREE.Mesh(vg, new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: true, roughness: 1 }));
+  valley.receiveShadow = true;
+  scene.add(valley);
+  // pini low-poly
+  const trunkG = new THREE.CylinderGeometry(0.15, 0.2, 1, 5);
+  const leafG = new THREE.ConeGeometry(1, 2.2, 6);
+  const leafM = [mat(0x2f6b3a), mat(0x3d7f3f), mat(0x285c34)];
+  for (let i = 0; i < 90; i++) {
+    const x = (hash(i, 11) - 0.5) * 120;
+    const z = 2 + hash(11, i) * 55;
+    if (Math.abs(x) < 7 && z < 14) continue; // radura davanti alla parete
+    const s = 0.8 + hash(i, 13) * 1.4;
+    const t = new THREE.Group();
+    const trunk = new THREE.Mesh(trunkG, M.wood);
+    trunk.position.y = 0.5;
+    t.add(trunk);
+    for (let k = 0; k < 3; k++) {
+      const l = new THREE.Mesh(leafG, leafM[(i + k) % 3]);
+      l.scale.setScalar(1 - k * 0.25);
+      l.position.y = 1.6 + k * 0.9;
+      l.castShadow = true;
+      t.add(l);
+    }
+    t.scale.setScalar(s);
+    t.position.set(x, -0.05, z);
+    t.rotation.y = hash(i, 17) * 6;
+    scene.add(t);
+  }
+  // rocce sparse
+  for (let i = 0; i < 25; i++) {
+    const r = new THREE.Mesh(new THREE.DodecahedronGeometry(0.4 + hash(i, 21) * 0.9, 0), M.rock);
+    r.position.set((hash(i, 23) - 0.5) * 80, 0, 1 + hash(23, i) * 40);
+    r.castShadow = r.receiveShadow = true;
+    scene.add(r);
+  }
 }
 
 // ------------------------------------------------------------------ scalatore
@@ -236,7 +295,7 @@ let falls = 0;
 let holding = false;
 let started = false;
 let lastBiome = BIOMES[0].name;
-let camY = 6, camX = 0;
+let camY = 30, camX = 0;
 
 function toast(msg, ms = 1600) {
   const el = $('toast');
@@ -347,6 +406,9 @@ function frame(now) {
   const dist = Math.max(24, needW / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.aspect));
   camX += (player.x * 0.55 - camX) * Math.min(1, dt * 3);
   camY += (player.y + 2.5 + (player.vy > 0 ? 1.5 : 0) - camY) * Math.min(1, dt * 3.5);
+  const halfH = dist * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+  const camMin = halfH * 0.72; // in basso si vede un po' di valle, mai il vuoto
+  if (camY < camMin) camY = camMin;
   camera.position.set(camX, camY - dist * 0.08, dist);
   camera.lookAt(camX, camY, 0);
   sun.position.set(camX + 12, camY + 25, 30);
