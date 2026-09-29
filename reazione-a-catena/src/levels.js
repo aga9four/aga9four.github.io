@@ -53,18 +53,14 @@ export const LEVELS = [
   },
   {
     name: 'Altalena',
-    hint: 'Fai cadere qualcosa di pesante sul lato sinistro dell’altalena: la biglia dorata volerà.',
+    hint: 'Lascia cadere il blocco sull’altalena: più cade dall’alto, più la biglia vola. Poi deviala verso il cestino con un’asse.',
     par: 2,
-    inv: { plank: 2, block: 1 },
+    inv: { block: 1, plank: 2 },
     statics: [
-      { x: -5.8, y: 8.0, w: 3.6, h: 0.25, rot: -18 }, // scivolo alto
-      { x: -1.2, y: 0.5, w: 0.4, h: 1.0, rot: 0 }, // perno dell'altalena (solo grafica sotto)
+      { x: -1.2, y: 0.5, w: 0.4, h: 1.0, rot: 0 }, // perno dell'altalena
     ],
-    dynamics: [
-      { type: 'ball', x: -7.3, y: 8.8, r: 0.4, heavy: true },
-      { type: 'ball', x: 0.8, y: 1.6, r: 0.33, hero: true },
-    ],
+    dynamics: [{ type: 'ball', x: 0.8, y: 1.6, r: 0.33, hero: true }],
     seesaws: [{ x: -1.2, y: 1.1, len: 4.4 }],
-    goal: { x: 5.4, y: 3.6, w: 2.2, h: 1.2, stand: true },
+    goal: { x: 5.2, y: 0, w: 2.4, h: 1.3 },
   },
 ];
