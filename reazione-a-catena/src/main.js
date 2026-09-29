@@ -145,12 +145,13 @@ function buildLevel(i) {
   bottom.position.set(0, 0.1, 0);
   const l = box(0.2, g.h, 1.6, M.basket);
   l.position.set(-g.w / 2 + 0.1, g.h / 2, 0);
-  const r = box(0.2, g.h, 1.6, M.basket);
-  r.position.set(g.w / 2 - 0.1, g.h / 2, 0);
+  const rh = g.h + (g.backboard || 0); // tabellone dietro al cestino, come nel basket
+  const r = box(0.2, rh, 1.6, M.basket);
+  r.position.set(g.w / 2 - 0.1, rh / 2, 0);
   const pole = box(0.06, 1.6, 0.06, M.pivot);
-  pole.position.set(g.w / 2 - 0.1, g.h + 0.8, 0);
+  pole.position.set(g.w / 2 - 0.1, rh + 0.8, 0);
   const flag = new THREE.Mesh(new THREE.ShapeGeometry(new THREE.Shape([new THREE.Vector2(0, 0), new THREE.Vector2(-0.8, -0.25), new THREE.Vector2(0, -0.5)])), M.flag);
-  flag.position.set(g.w / 2 - 0.12, g.h + 1.6, 0);
+  flag.position.set(g.w / 2 - 0.12, rh + 1.6, 0);
   basket.add(bottom, l, r, pole, flag);
   if (g.stand) {
     const st = box(0.5, g.y, 0.5, M.pivot);
@@ -306,7 +307,8 @@ function buildWorld() {
   const g = level.goal;
   fixedBox(w, g.x, g.y + 0.1, g.w / 2, 0.1, 0);
   fixedBox(w, g.x - g.w / 2 + 0.1, g.y + g.h / 2, 0.1, g.h / 2, 0);
-  fixedBox(w, g.x + g.w / 2 - 0.1, g.y + g.h / 2, 0.1, g.h / 2, 0);
+  const rh = g.h + (g.backboard || 0);
+  fixedBox(w, g.x + g.w / 2 - 0.1, g.y + rh / 2, 0.1, rh / 2, 0, { restitution: 0 });
   if (g.stand) fixedBox(w, g.x, g.y / 2, 0.25, g.y / 2, 0);
   level.dynamics.forEach((d, i) => {
     const b = w.createRigidBody(RAPIER.RigidBodyDesc.dynamic().setTranslation(d.x, d.y).setCcdEnabled(true));
@@ -485,6 +487,7 @@ requestAnimationFrame(frame);
 
 // Strumento di prova (per verificare che ogni livello sia risolvibile)
 window.__rc = {
+  levels: LEVELS,
   load: (i) => { stopSim(); buildLevel(i); },
   place: (type, x, y, rot = 0) => { const p = { type, x, y, rot, mesh: partMesh(type) }; levelGroup.add(p.mesh); placed.push(p); resetDynamicsView(); return placed.length; },
   clear: () => { for (const p of placed) levelGroup.remove(p.mesh); placed = []; resetDynamicsView(); },

@@ -20,7 +20,7 @@ export const LEVELS = [
       { x: -0.2, y: 1.6, w: 0.5, h: 3.2, rot: 0 }, // muro
     ],
     dynamics: [{ type: 'ball', x: -7.2, y: 8.3, r: 0.36, hero: true }],
-    goal: { x: 5.6, y: 0, w: 2.2, h: 1.3 },
+    goal: { x: 5.6, y: 0, w: 2.8, h: 1.3 },
   },
   {
     name: 'Effetto domino',
@@ -30,7 +30,7 @@ export const LEVELS = [
     statics: [
       { x: -6.6, y: 6.2, w: 3.2, h: 0.25, rot: -30 }, // scivolo
       { x: -1.6, y: 3.0, w: 9.8, h: 0.3, rot: 0 }, // mensola
-      { x: -3.9, y: 3.32, w: 0.3, h: 0.34, rot: 0 }, // gradino che ferma la biglia
+      { x: -3.9, y: 3.5, w: 0.3, h: 0.7, rot: 0 }, // gradino che ferma la biglia
     ],
     dynamics: [
       { type: 'ball', x: -7.6, y: 7.2, r: 0.33 },
@@ -48,7 +48,7 @@ export const LEVELS = [
       { x: 5.3, y: 2.6, w: 3.4, h: 5.2, rot: 0 }, // torre con il cestino in cima
     ],
     dynamics: [{ type: 'ball', x: -6.8, y: 9.7, r: 0.36, hero: true }],
-    goal: { x: 5.3, y: 5.2, w: 2.4, h: 1.2 },
+    goal: { x: 5.3, y: 5.2, w: 2.4, h: 1.2, backboard: 3 },
   },
   {
     name: 'Altalena',
