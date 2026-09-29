@@ -497,6 +497,7 @@ requestAnimationFrame(frame);
 window.__rc = {
   levels: LEVELS,
   TUNE,
+  PARTS,
   load: (i) => { stopSim(); buildLevel(i); },
   place: (type, x, y, rot = 0) => { const p = { type, x, y, rot, mesh: partMesh(type) }; levelGroup.add(p.mesh); placed.push(p); resetDynamicsView(); return placed.length; },
   clear: () => { for (const p of placed) levelGroup.remove(p.mesh); placed = []; resetDynamicsView(); },
