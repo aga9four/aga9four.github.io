@@ -494,10 +494,10 @@ window.__rc = {
   simulate: (maxSeconds = MAX_TIME) => {
     const built = buildWorld();
     world = built.w; bodies = built.list; simTime = 0; insideTime = 0;
-    let r = null, maxX = -99, trace = [];
+    let r = null, trace = [], n = 0;
     while (!r && simTime < maxSeconds) {
       r = stepSim();
-      if (heroBody) { const t = heroBody.translation(); maxX = Math.max(maxX, t.x); if (Math.round(simTime * 60) % 30 === 0) trace.push([+t.x.toFixed(2), +t.y.toFixed(2)]); }
+      if (n++ % 30 === 0) trace.push([+simTime.toFixed(1), ...bodies.map((o) => { const t = o.body.translation(); return [+t.x.toFixed(2), +t.y.toFixed(2)]; })]);
     }
     const hero = heroBody ? heroBody.translation() : null;
     stopSim();
