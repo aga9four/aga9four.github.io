@@ -101,7 +101,7 @@ let level = null, levelIndex = 0;
 let placed = []; // { type, x, y, rot, mesh }
 let selected = null;
 let mode = 'edit';
-const TUNE = { dominoFriction: 0.9, heroFriction: 0.4 };
+const TUNE = { dominoFriction: 0.5, heroFriction: 0.4 };
 let world = null, bodies = [], simTime = 0, insideTime = 0, heroBody = null;
 const progress = (() => { try { return JSON.parse(localStorage.getItem('rdc.progress') || '{}'); } catch { return {}; } })();
 const saveProgress = () => { try { localStorage.setItem('rdc.progress', JSON.stringify(progress)); } catch { /* */ } };

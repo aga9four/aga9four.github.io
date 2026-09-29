@@ -4,7 +4,7 @@
 
 export const PARTS = {
   plank: { label: 'Asse', icon: '╱', w: 3, h: 0.22 },
-  domino: { label: 'Domino', icon: '▍', w: 0.22, h: 1.1 },
+  domino: { label: 'Domino', icon: '▍', w: 0.22, h: 1.4 },
   bouncer: { label: 'Molla', icon: '≀', w: 1.6, h: 0.3 },
   block: { label: 'Blocco', icon: '■', w: 0.9, h: 0.9 },
 };
@@ -24,17 +24,18 @@ export const LEVELS = [
   },
   {
     name: 'Effetto domino',
-    hint: 'La biglia di partenza si ferma contro il gradino. Fai arrivare la spinta fino alla biglia dorata con i domino.',
-    par: 5,
-    inv: { domino: 7 },
+    hint: 'La biglia di partenza finisce nel buco. Metti un domino sul suo percorso: cadendo oltre il buco spingerà la biglia dorata.',
+    par: 1,
+    inv: { domino: 3 },
     statics: [
-      { x: -6.6, y: 6.2, w: 3.2, h: 0.25, rot: -30 }, // scivolo
-      { x: -1.6, y: 3.0, w: 9.8, h: 0.3, rot: 0 }, // mensola
-      { x: -3.9, y: 3.5, w: 0.3, h: 0.7, rot: 0 }, // gradino che ferma la biglia
+      { x: -6.6, y: 3.98, w: 3.2, h: 0.25, rot: -25 }, // scivolo
+      { x: -5.55, y: 3.0, w: 2.5, h: 0.3, rot: 0 }, // mensola sinistra
+      { x: -1.9, y: 3.0, w: 2.6, h: 0.3, rot: 0 }, // mensola destra (dopo il buco)
+      { x: 1.83, y: 2.37, w: 5, h: 0.25, rot: -15 }, // discesa verso il cestino
     ],
     dynamics: [
-      { type: 'ball', x: -7.6, y: 7.2, r: 0.33 },
-      { type: 'ball', x: 3.05, y: 3.5, r: 0.33, hero: true },
+      { type: 'ball', x: -7.65, y: 5.28, r: 0.33 },
+      { type: 'ball', x: -2.8, y: 3.5, r: 0.33, hero: true },
     ],
     goal: { x: 5.6, y: 0, w: 2.2, h: 1.3 },
   },
