@@ -101,6 +101,7 @@ let level = null, levelIndex = 0;
 let placed = []; // { type, x, y, rot, mesh }
 let selected = null;
 let mode = 'edit';
+const TUNE = { dominoFriction: 0.9, heroFriction: 0.4 };
 let world = null, bodies = [], simTime = 0, insideTime = 0, heroBody = null;
 const progress = (() => { try { return JSON.parse(localStorage.getItem('rdc.progress') || '{}'); } catch { return {}; } })();
 const saveProgress = () => { try { localStorage.setItem('rdc.progress', JSON.stringify(progress)); } catch { /* */ } };
@@ -315,11 +316,11 @@ function buildWorld() {
     const b = w.createRigidBody(RAPIER.RigidBodyDesc.dynamic().setTranslation(d.x, d.y).setRotation((d.rot || 0) * DEG).setCcdEnabled(true).setCanSleep(false));
     if (d.type !== 'ball') {
       const pd = PARTS[d.type];
-      w.createCollider(RAPIER.ColliderDesc.cuboid(pd.w / 2, pd.h / 2).setDensity(3).setFriction(0.9).setRestitution(0.05), b);
+      w.createCollider(RAPIER.ColliderDesc.cuboid(pd.w / 2, pd.h / 2).setDensity(3).setFriction(TUNE.dominoFriction).setRestitution(0.05), b);
       list.push({ body: b, mesh: dynViews[i] });
       return;
     }
-    w.createCollider(RAPIER.ColliderDesc.ball(d.r).setDensity(d.density ?? (d.heavy ? 8 : 2)).setFriction(0.4).setRestitution(0.25), b);
+    w.createCollider(RAPIER.ColliderDesc.ball(d.r).setDensity(d.density ?? (d.heavy ? 8 : 2)).setFriction(d.hero ? TUNE.heroFriction : 0.4).setRestitution(0.25), b);
     list.push({ body: b, mesh: dynViews[i] });
     if (d.hero) heroBody = b;
   });
@@ -337,7 +338,7 @@ function buildWorld() {
     else if (p.type === 'bouncer') fixedBox(w, p.x, p.y, pd.w / 2, pd.h / 2, rot, { restitution: 1.15, bouncy: true, friction: 0.2 });
     else {
       const b = w.createRigidBody(RAPIER.RigidBodyDesc.dynamic().setTranslation(p.x, p.y).setRotation(rot));
-      w.createCollider(RAPIER.ColliderDesc.cuboid(pd.w / 2, pd.h / 2).setDensity(p.type === 'block' ? 5 : 3).setFriction(p.type === 'domino' ? 0.9 : 0.5).setRestitution(0.05), b);
+      w.createCollider(RAPIER.ColliderDesc.cuboid(pd.w / 2, pd.h / 2).setDensity(p.type === 'block' ? 5 : 3).setFriction(p.type === 'domino' ? TUNE.dominoFriction : 0.5).setRestitution(0.05), b);
       list.push({ body: b, mesh: p.mesh });
     }
   }
@@ -495,6 +496,7 @@ requestAnimationFrame(frame);
 // Strumento di prova (per verificare che ogni livello sia risolvibile)
 window.__rc = {
   levels: LEVELS,
+  TUNE,
   load: (i) => { stopSim(); buildLevel(i); },
   place: (type, x, y, rot = 0) => { const p = { type, x, y, rot, mesh: partMesh(type) }; levelGroup.add(p.mesh); placed.push(p); resetDynamicsView(); return placed.length; },
   clear: () => { for (const p of placed) levelGroup.remove(p.mesh); placed = []; resetDynamicsView(); },
