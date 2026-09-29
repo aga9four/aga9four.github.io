@@ -182,8 +182,9 @@ function resetDynamicsView() {
   for (const v of dynViews) levelGroup.remove(v);
   dynViews = [];
   for (const d of level.dynamics) {
-    const m = ball(d.r, d.hero ? M.hero : d.heavy ? M.heavy : M.ball);
+    const m = d.type === 'ball' ? ball(d.r, d.hero ? M.hero : d.heavy ? M.heavy : M.ball) : partMesh(d.type);
     m.position.set(d.x, d.y, 0);
+    m.rotation.set(0, 0, (d.rot || 0) * DEG);
     levelGroup.add(m);
     dynViews.push(m);
   }
@@ -311,7 +312,13 @@ function buildWorld() {
   fixedBox(w, g.x + g.w / 2 - 0.1, g.y + rh / 2, 0.1, rh / 2, 0, { restitution: 0 });
   if (g.stand) fixedBox(w, g.x, g.y / 2, 0.25, g.y / 2, 0);
   level.dynamics.forEach((d, i) => {
-    const b = w.createRigidBody(RAPIER.RigidBodyDesc.dynamic().setTranslation(d.x, d.y).setCcdEnabled(true));
+    const b = w.createRigidBody(RAPIER.RigidBodyDesc.dynamic().setTranslation(d.x, d.y).setRotation((d.rot || 0) * DEG).setCcdEnabled(true));
+    if (d.type !== 'ball') {
+      const pd = PARTS[d.type];
+      w.createCollider(RAPIER.ColliderDesc.cuboid(pd.w / 2, pd.h / 2).setDensity(1).setFriction(0.9).setRestitution(0.05), b);
+      list.push({ body: b, mesh: dynViews[i] });
+      return;
+    }
     w.createCollider(RAPIER.ColliderDesc.ball(d.r).setDensity(d.heavy ? 8 : 2).setFriction(0.4).setRestitution(0.25), b);
     list.push({ body: b, mesh: dynViews[i] });
     if (d.hero) heroBody = b;
