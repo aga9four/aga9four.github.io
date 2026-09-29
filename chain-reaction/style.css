@@ -27,7 +27,7 @@ button { font: inherit; color: var(--ink); cursor: pointer; }
 #selTools { position: fixed; right: calc(12px + var(--safe-r)); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 12px; }
 
 #bottom { position: fixed; left: 0; right: 0; bottom: 0; padding: 8px calc(12px + var(--safe-r)) calc(8px + var(--safe-b)) calc(12px + var(--safe-l));
-  display: flex; gap: 10px; align-items: center; background: linear-gradient(transparent, rgba(241,226,204,.96) 40%); }
+  display: flex; gap: 10px; align-items: center; background: linear-gradient(transparent, var(--paper) 45%); }
 #inv { flex: 1; display: flex; gap: 8px; overflow-x: auto; }
 .part { width: 72px; height: 66px; border: 0; border-radius: 14px; background: #fff; padding: 4px; box-shadow: 0 3px 0 rgba(0,0,0,.12);
   display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; touch-action: none; }
@@ -64,6 +64,14 @@ button { font: inherit; color: var(--ink); cursor: pointer; }
 #panel .row button.go { background: var(--green); color: #fff; box-shadow: 0 3px 0 var(--green-d); }
 #panel .settings button { font-weight: 700; font-size: 14px; }
 #panel .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 10px; margin-top: 8px; }
+#panel .chgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(108px, 1fr)); gap: 10px; margin-top: 8px; }
+#panel .ch { border: 0; border-radius: 18px; background: var(--tint, #fff); box-shadow: 0 3px 0 rgba(0,0,0,.12); padding: 10px 6px; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+#panel .ch .icon svg { width: 34px; height: 34px; }
+#panel .ch b { font-size: 13px; opacity: .6; }
+#panel .ch span { font-size: 14px; font-weight: 800; }
+#panel .ch small { font-size: 13px; font-weight: 700; color: #b07d0f; }
+#panel .ch.locked { filter: grayscale(.8); opacity: .6; }
+#panel .ch.cur { outline: 3px solid var(--gold); }
 #panel .lv { border: 0; border-radius: 16px; background: #fff; box-shadow: 0 3px 0 rgba(0,0,0,.1); padding: 10px 6px; display: flex; flex-direction: column; align-items: center; gap: 2px; }
 #panel .lv b { font-size: 22px; }
 #panel .lv span { font-size: 13px; font-weight: 700; }
