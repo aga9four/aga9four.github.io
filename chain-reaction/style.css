@@ -96,3 +96,23 @@ button { font: inherit; color: var(--ink); cursor: pointer; }
   background: radial-gradient(circle at 35% 30%, #fff6c8, #ffc640 40%, #b07a0c 100%); box-shadow: 0 6px 14px rgba(150,100,0,.35); animation: bob 1.6s ease-in-out infinite; }
 #splash .big { font-size: 22px; padding: 0 44px; height: 62px; }
 @keyframes bob { 50% { transform: translateY(-10px); } }
+
+/* replay: video verticale a sinistra (o in alto), azioni accanto */
+#replay { position: fixed; inset: 0; z-index: 6; background: rgba(28,22,18,.88); display: flex; align-items: center; justify-content: center;
+  gap: 22px; padding: 16px; flex-wrap: wrap; }
+#replay .media { height: min(86vh, 900px); aspect-ratio: 9 / 16; border-radius: 18px; overflow: hidden; background: #000; box-shadow: 0 16px 50px rgba(0,0,0,.5); }
+#replay canvas, #replay video { width: 100%; height: 100%; display: block; object-fit: contain; }
+#replay .side { display: flex; flex-direction: column; gap: 12px; align-items: stretch; min-width: 200px; max-width: 280px; }
+#replay p { color: #fff; font-weight: 800; font-size: 18px; margin: 0; text-align: center; }
+#replay p.rec::before { content: ''; display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: #e2553e; margin-right: 8px; animation: blink 1s infinite; }
+@keyframes blink { 50% { opacity: .25; } }
+#replayActions { display: flex; flex-direction: column; gap: 12px; }
+#replay button { border: 0; border-radius: 14px; padding: 13px 18px; background: #efe4d4; font-weight: 800; font-size: 16px; }
+#replay button.go { background: var(--green); color: #fff; box-shadow: 0 3px 0 var(--green-d); }
+#replay .closeBtn { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.4); }
+@media (orientation: portrait) {
+  #replay { flex-direction: column; flex-wrap: nowrap; }
+  #replay .media { height: auto; width: min(80vw, 62vh * 9 / 16); }
+  #replay .side { max-width: none; width: min(80vw, 360px); }
+}
+#panel .row button.replayBtn { background: #2b2522; color: #fff; }

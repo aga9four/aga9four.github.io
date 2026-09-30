@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f1e2cc" />
   <title>Reazione a catena</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2213%22 fill=%22%23ffc83d%22/%3E%3C/svg%3E" />
-  <link rel="stylesheet" href="style.css?v=munxu0tk" />
+  <link rel="stylesheet" href="style.css?v=muo1gex5" />
 </head>
 <body>
   <canvas id="c"></canvas>
@@ -42,9 +42,20 @@
   <div id="rotateTip" class="hidden"></div>
   <div id="shade" class="hidden"></div>
   <div id="panel" class="hidden"></div>
+  <div id="replay" class="hidden">
+    <div class="media"><canvas id="replayCanvas"></canvas><video id="replayVideo" class="hidden" playsinline loop muted></video></div>
+    <div class="side">
+      <p id="replayMsg"></p>
+      <div id="replayActions" class="hidden">
+        <button id="rShare" class="go"></button>
+        <button id="rChallenge"></button>
+      </div>
+      <button id="rClose" class="closeBtn"></button>
+    </div>
+  </div>
   <div id="splash"><div class="logo"><span class="ball"></span><h1 id="splashTitle"></h1><p id="splashSub"></p></div><button id="splashPlay" class="big"></button></div>
   <div id="loading"><div class="spinner"></div></div>
   <div id="err"></div>
-  <script type="module" src="game.js?v=munxu0tk"></script>
+  <script type="module" src="game.js?v=muo1gex5"></script>
 </body>
 </html>
