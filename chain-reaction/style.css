@@ -141,3 +141,23 @@ button { font: inherit; color: var(--ink); cursor: pointer; }
 #panel .skin small { font-size: 12px; font-weight: 700; color: #b07d0f; min-height: 15px; }
 #panel .skin.locked .ball { filter: grayscale(.85) brightness(.8); }
 #panel .skin.cur { outline: 3px solid #2e9c6a; }
+
+/* joystick a frecce per spostare il pezzo selezionato */
+#padBtn.on { background: var(--gold); }
+#pad { position: fixed; right: calc(68px + var(--safe-r)); top: 50%; transform: translateY(-50%); display: grid; gap: 6px;
+  grid-template-columns: repeat(3, 50px); grid-template-rows: repeat(3, 50px); grid-template-areas: ". u x" "l c r" ". d .";
+  background: rgba(255,253,248,.55); padding: 8px; border-radius: 24px; box-shadow: 0 4px 16px rgba(0,0,0,.12); touch-action: none; }
+#pad button { border: 0; border-radius: 14px; background: #fff; font-size: 20px; font-weight: 900; box-shadow: 0 3px 0 rgba(0,0,0,.14); padding: 0; touch-action: none; }
+#pad button.dir:active, #pad button.held { transform: translateY(2px); box-shadow: none; background: var(--gold); }
+#pad #padStep { font-size: 11px; font-weight: 800; background: #efe4d4; line-height: 1.1; }
+#pad #padClose { font-size: 15px; background: transparent; box-shadow: none; opacity: .6; }
+@media (max-height: 380px) { #pad { grid-template-columns: repeat(3, 44px); grid-template-rows: repeat(3, 44px); } }
+
+/* tutorial illustrato */
+#panel.tut { width: min(94vw, 560px); }
+#panel .tutArt { display: block; width: 100%; height: min(38vh, 170px); margin: 4px 0; }
+#panel .tutText { font-size: 15px; line-height: 1.35; min-height: 3.6em; }
+#panel .dots { display: flex; gap: 6px; justify-content: center; margin-top: 6px; }
+#panel .dots i { width: 8px; height: 8px; border-radius: 50%; background: #e2d6c4; }
+#panel .dots i.on { background: var(--green); }
+#panel .row button.skip { background: transparent; opacity: .6; }
