@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.nutrishopper.chainreaction",
+      "sha256_cert_fingerprints": ["5F:00:28:AE:A5:BF:8F:5D:41:18:29:9D:E7:06:01:A5:94:FA:44:54:A2:40:B2:22:AE:76:D3:05:C2:1F:79:4D"]
+    }
+  }
+]
