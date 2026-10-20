@@ -40,7 +40,7 @@ button { font: inherit; color: var(--ink); cursor: pointer; }
 .part { flex: 0 0 auto; width: 72px; height: 66px; border: 0; border-radius: 14px; background: #fff; padding: 4px; box-shadow: 0 3px 0 rgba(0,0,0,.12);
   display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; touch-action: pan-x; }
 .part svg { width: 30px; height: 30px; }
-.part small { font-size: 11px; font-weight: 700; }
+.part small { font-size: 11px; font-weight: 700; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .part i { position: absolute; top: 3px; right: 6px; font-style: normal; font-size: 11px; font-weight: 800; opacity: .6; }
 .part:disabled { opacity: .35; }
 .big { border: 0; border-radius: 16px; height: 56px; padding: 0 24px; font-weight: 900; font-size: 19px; background: var(--green); color: #fff;
@@ -207,3 +207,15 @@ body.creating #toast { top: calc(112px + var(--safe-t)); }
 #panel .swatch { display: block; width: 52px; height: 52px; border-radius: 14px; box-shadow: inset 0 -3px 0 rgba(0,0,0,.15); }
 #panel .swatch.trail { height: 16px; margin: 18px 0; border-radius: 8px; }
 #panel .item.locked .swatch { filter: saturate(.6); opacity: .8; }
+
+#skipChip { position: fixed; right: calc(150px + var(--safe-r)); bottom: calc(86px + var(--safe-b)); border: 0; border-radius: 999px; padding: 10px 16px;
+  background: var(--gold); color: var(--ink); font-weight: 900; font-size: 14px; box-shadow: 0 4px 0 #d09a14; z-index: 3; animation: tipIn .3s ease-out; }
+#skipChip[disabled] { opacity: .5; }
+
+/* scheda del pezzo nuovo */
+#panel .pieceIntro { width: 110px; height: 110px; margin: 6px auto 0; border-radius: 28px; background: #fff4d6; display: grid; place-items: center;
+  box-shadow: 0 4px 0 rgba(0,0,0,.08); animation: pieceIn .6s cubic-bezier(.2,1.6,.4,1) both, wiggle 2.4s ease-in-out .7s infinite; }
+#panel .pieceIntro svg { width: 78px; height: 78px; }
+#panel h3.pieceName { text-align: center; font-size: 20px; margin: 8px 0 0; }
+@keyframes pieceIn { from { transform: scale(.3) rotate(-20deg); opacity: 0; } }
+@keyframes wiggle { 0%, 100% { transform: rotate(0); } 10% { transform: rotate(-8deg); } 20% { transform: rotate(6deg); } 30% { transform: rotate(0); } }
