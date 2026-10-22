@@ -235,3 +235,19 @@ body.creating #toast { top: calc(112px + var(--safe-t)); }
 #panel .prize { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 8px 0; }
 #panel .prize .swatch.trail { width: 70px; margin: 0; }
 #panel .lv.done { background: #e6f6ec; }
+
+/* galleria della community */
+#panel .mode.gallery { background: linear-gradient(135deg, #d4f1ff, #8fd3ff); }
+#panel .gtabs { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin: 6px 0 8px; }
+#panel .gtabs .gtab { border: 0; border-radius: 999px; padding: 7px 12px; background: #efe7da; color: var(--ink); font-weight: 800; font-size: 13.5px; }
+#panel .gtabs .gtab.on { background: #2b2522; color: #fff; }
+#panel .glist { display: grid; gap: 8px; max-width: 520px; margin: 0 auto; text-align: left; }
+#panel .gcard { display: flex; gap: 6px; align-items: stretch; }
+#panel .gcard .gplay { flex: 1; display: grid; gap: 2px; text-align: left; border: 0; border-radius: 14px; padding: 10px 12px; background: #fff; box-shadow: 0 3px 0 rgba(0,0,0,.08); color: var(--ink); }
+#panel .gcard .gplay b { font-size: 16px; }
+#panel .gcard .gplay small { opacity: .7; font-size: 12.5px; }
+#panel .gcard .gplay span { font-size: 13px; font-weight: 700; color: #1f8f8a; }
+#panel .gcard .gdel { border: 0; border-radius: 14px; padding: 0 12px; background: #fde2dc; font-weight: 800; }
+#panel button.ghost { opacity: .75; }
+#panel button.link { border: 0; background: none; padding: 0 4px; color: #1f6fb2; font-weight: 800; text-decoration: underline; box-shadow: none; }
+#panel .pub { background: #1f6fb2; }
